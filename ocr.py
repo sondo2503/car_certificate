@@ -9,8 +9,8 @@ from detection.detector import Detector
 from recognition.vietocr.tool.config import Cfg
 from recognition.vietocr.tool.predictor import Predictor
 
-detect_pres = Detector(r"./weight/detection/final_detection_press.pt")
-detect_pill = Detector(r"./weight/detection/final_detection_drug2.pt")
+license_plate_detector = Detector(r"./weight/detection/best.pt")
+# detect_pill = Detector(r"./weight/detection/final_detection_drug2.pt")
 cfg_license_plates = Cfg.load_config_from_file(r'./recognition/vietocr/base.yml')
 
 predict_pres = Predictor(cfg_license_plates)
