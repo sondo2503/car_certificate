@@ -20,7 +20,7 @@ from recognition.vietocr.tool.predictor import Predictor
 
 license_plates_detector = Detector(r"./weight/detection/best.pt")
 license_plates_corner_detector = Detector(r"weight/corner_detection/best_corner.pt")
-cfg_license_plates = Cfg.load_config_from_file(r'./recognition/vietocr/base.yml')
+cfg_license_plates = Cfg.load_config_from_file(r'recognition/base.yml')
 
 predictor_license_plates = Predictor(cfg_license_plates)
 
@@ -198,57 +198,59 @@ class OcrService:
             license_plates_C2 = []
             license_plates_C3 = []
             license_plates_J = []
-
-            if (image_w > image_h):
-                license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
                 license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
                     image_new)
+            # if (image_w > image_h):
+            #     license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #     license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
+            #         image_new)
 
-                if len(license_plates_J):
-                    registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
+            #     if len(license_plates_J):
+            #         registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
 
-                    if license_plates_E == [] or registration_date['conf'] < 0.69:
-                        image_new4 = ndimage.rotate(image_new, 180)
-                        license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                        license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
-                            image_new4)
+            #         if license_plates_E == [] or registration_date['conf'] < 0.69:
+            #             image_new4 = ndimage.rotate(image_new, 180)
+            #             license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #             license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
+            #                 image_new4)
 
-                else:
-                    license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                    license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
-                        img)
+            #     else:
+            #         license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #         license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
+            #             img)
 
-            if (image_w < image_h):
+            # if (image_w < image_h):
 
-                license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
-                    img)
+            #     license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #     license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
+            #         img)
 
-                registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
+            #     registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
 
-                # print(registration_date['conf'])
-                try:
-                    if license_plates_E == [] or registration_date['conf'] < 0.69:
-                        image_new_2 = ndimage.rotate(image_new, 90)
-                        license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                        license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
-                            image_new_2)
+            #     # print(registration_date['conf'])
+            #     try:
+            #         if license_plates_E == [] or registration_date['conf'] < 0.69:
+            #             image_new_2 = ndimage.rotate(image_new, 90)
+            #             license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #             license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2, license_plates_C3, license_plates_J = license_plates_detector.detect_license_plates(
+            #                 image_new_2)
 
-                        registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
+            #             registration_date = self._calConfAndStringTransfomer_license_plates(license_plates_E)
 
-                        if license_plates_E == [] or registration_date['conf'] < 0.69:
-                            image_new3 = ndimage.rotate(image_new_2, 180)
-                            license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                            license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
-                                image_new3)
+            #             if license_plates_E == [] or registration_date['conf'] < 0.69:
+            #                 image_new3 = ndimage.rotate(image_new_2, 180)
+            #                 license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #                 license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
+            #                     image_new3)
 
-                    else:
-                        license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
-                        license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
-                            img)
+            #         else:
+            #             license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \
+            #             license_plates_F, license_plates_G, license_plates_H, license_plates_I, license_plates_C1, license_plates_C2,license_plates_C3,  license_plates_J = license_plates_detector.detect_license_plates(
+            #                 img)
 
-                except:
-                    pass
+            #     except:
+            #         pass
 
                 # else:
                 #     license_plates_A, license_plates_B, license_plates_C, license_plates_D, license_plates_E, \

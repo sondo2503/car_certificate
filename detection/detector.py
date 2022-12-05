@@ -1,11 +1,10 @@
 import queue
-
 import torch
 import numpy as np
 import cv2
 import os
 from .utils.general import non_max_suppression, scale_coords
-from src.tools.croper import Croper
+from .tools.croper import Croper
 from .models.experimental import attempt_load
 
 class Detector:
@@ -475,7 +474,7 @@ class Detector:
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], imgSrc.shape).round()
                 for *xyxy, conf, cls in reversed(det):
                     print(self._names[int(cls)])
-                    if (self._names[int(cls)] == 'A' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'A Amtliches Kennzeichen' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_A.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -496,7 +495,7 @@ class Detector:
                                                                                                                int(xyxy[
                                                                                                                        3])))))
 
-                    if (self._names[int(cls)] == 'B' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'E' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_B.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -559,7 +558,7 @@ class Detector:
                                                                                                                int(xyxy[
                                                                                                                        3])))))
 
-                    if (self._names[int(cls)] == 'E' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'B' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_E.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -580,7 +579,7 @@ class Detector:
                                                                                                                int(xyxy[
                                                                                                                        3])))))
 
-                    if (self._names[int(cls)] == 'F' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'P.3' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_F.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -601,7 +600,7 @@ class Detector:
                                                                                                                int(xyxy[
                                                                                                                        3])))))
 
-                    if (self._names[int(cls)] == 'G' and float(conf) > thresh):
+                    if (self._names[int(cls)] == '5' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_G.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -622,7 +621,7 @@ class Detector:
                                                                                                                int(xyxy[
                                                                                                                        3])))))
 
-                    if (self._names[int(cls)] == 'H' and float(conf) > thresh):
+                    if (self._names[int(cls)] == '14.1' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_H.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -642,7 +641,7 @@ class Detector:
                                                                                                                        0]),
                                                                                                                int(xyxy[
                                                                                                                        3])))))
-                    if (self._names[int(cls)] == 'I' and float(conf) > thresh):
+                    if (self._names[int(cls)] == '14' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_I.append(((int(xyxy[0]), int(xyxy[1]), cx, cy), self.croper.cropByCoor(imgSrc,
@@ -662,7 +661,7 @@ class Detector:
                                                                                                                        0]),
                                                                                                                int(xyxy[
                                                                                                                        3])))))
-                    if (self._names[int(cls)] == 'C1' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'C.1.1 Name oder Firmenname' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_C1.append(
@@ -683,7 +682,7 @@ class Detector:
                                                                                                    0]),
                                                                                            int(xyxy[
                                                                                                    3])))))
-                    if (self._names[int(cls)] == 'C2' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'C.1.2 Vorname(n)' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_C2.append(
@@ -704,7 +703,7 @@ class Detector:
                                                                                                    0]),
                                                                                            int(xyxy[
                                                                                                    3])))))
-                    if (self._names[int(cls)] == 'C3' and float(conf) > thresh):
+                    if (self._names[int(cls)] == 'C.1.3 Anschrift' and float(conf) > thresh):
                         cx = int(xyxy[0]) + (int(xyxy[2]) - int(xyxy[0])) / 2
                         cy = int(xyxy[1]) + (int(xyxy[3]) - int(xyxy[1])) / 2
                         license_plates_C3.append(
